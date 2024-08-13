@@ -4,6 +4,7 @@
 void printUppercase(int ac, char **av)
 {
 	std::string to_print;
+
 	to_print = av[1];
 	for (int i = 2; i <= ac - 1; i++)
 		to_print.append(av[i]);

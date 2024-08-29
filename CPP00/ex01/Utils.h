@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   Utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 01:00:00 by acaffard          #+#    #+#             */
-/*   Updated: 2024/08/13 17:11:06 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:29:46 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ typedef enum e_input_type
 {
 	ADD, SEARCH, EXIT
 } t_input_type;
+
+std::string inputValidPhoneNumber();
+std::string inputString(std::string type);
 
 #endif

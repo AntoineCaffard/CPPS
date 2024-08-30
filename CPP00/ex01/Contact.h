@@ -24,9 +24,12 @@ class Contact {
         std::string getNickName();
         std::string getPhoneNumber();
         std::string getSecret();
-        void setNickName(std::string newNickName);
-        void setPhoneNumber(std::string newPhoneNumber);
-        void print();
+        void        setFirstName();
+        void        setLastName();
+        void        setNickName();
+        void        setPhoneNumber();
+        void        setSecret();
+        void        print();
 };
 
 #endif //CPPS_CONTACT_H

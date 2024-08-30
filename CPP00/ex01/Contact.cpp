@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:03:17 by acaffard          #+#    #+#             */
-/*   Updated: 2024/08/29 16:30:47 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:48:30 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 Contact::Contact()
 {
-    firstName = inputString(("first name"));
-    lastName = inputString(("last name"));
-    nickName = inputString(("nickname"));
-    phoneNumber = inputValidPhoneNumber();
-    darkestSecret = inputString(("darkest secret"));
-    std::cout << "Contact " << nickName << " Created." << std::endl;
+    firstName="";
+    lastName="";
+    nickName="";
+    phoneNumber="";
+    darkestSecret="";
 }
 
 Contact::~Contact()
@@ -32,7 +31,6 @@ std::string Contact::getFirstName()
 {
     return (this->firstName);
 }
-
 std::string Contact::getLastName()
 {
     return (this->lastName);
@@ -53,21 +51,41 @@ std::string Contact::getSecret()
     return (this->darkestSecret);
 }
 
-void Contact::setNickName(std::string newNickName)
+void Contact::setFirstName()
 {
-    this->nickName = newNickName;
+    this->firstName = inputString(("first name"));
 }
 
-void Contact::setPhoneNumber(std::string newPhoneNumber)
+void Contact::setLastName()
 {
-    this->phoneNumber = newPhoneNumber;
+    this->lastName = inputString(("last name"));
+}
+
+void Contact::setNickName()
+{
+    this->nickName = inputString(("nickname"));
+}
+
+void Contact::setPhoneNumber()
+{
+    this->phoneNumber = inputValidPhoneNumber();
+}
+
+void Contact::setSecret()
+{
+    this->darkestSecret = inputString(("darkest secret"));
 }
 
 void Contact::print()
 {
-    std::cout << this->firstName << std::endl;
-    std::cout << this->lastName << std::endl;
-    std::cout << this->nickName << std::endl;
-    std::cout << this->phoneNumber << std::endl;
-    std::cout << this->darkestSecret << std::endl;
+    if (firstName.empty())
+        std::cout << "Empty Contact" << std::endl;
+    else
+    {
+        std::cout << this->firstName << std::endl;
+        std::cout << this->lastName << std::endl;
+        std::cout << this->nickName << std::endl;
+        std::cout << this->phoneNumber << std::endl;
+        std::cout << this->darkestSecret << std::endl << std::endl;
+    }
 }

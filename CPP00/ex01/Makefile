@@ -3,9 +3,9 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
-SRC = main.cpp Contact.cpp Utils.cpp
+SRC = main.cpp Contact.cpp Utils.cpp PhoneBook.cpp
 OBJS = $(SRC:.cpp=.o)
-INCLUDES = Contact.h Utils.h
+INCLUDES = Contact.h Utils.h PhoneBook.h
 
 all : $(NAME)
 

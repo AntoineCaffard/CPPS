@@ -1,20 +1,25 @@
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
+
 # include <iostream>
 # include <string>
+# include <iomanip>
 # include "Contact.h"
+# include "Utils.h"
 
 
 class PhoneBook {
 
 	private :
-		std::string contact_array[8];
-		int			oldest_member;
+		Contact 	contact_array[8];
+		int			current_index;
 	public:
 		PhoneBook();
-		int		getOldestContactID();
+		~PhoneBook();
+		void	search();
+		void	print();
 		void	printContact(int id);
 		void	addNewContact();
 };
 
-#endif PHONEBOOK_H
+#endif

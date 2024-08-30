@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:24:20 by acaffard          #+#    #+#             */
-/*   Updated: 2024/08/29 16:48:41 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:38:51 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ std::string inputValidPhoneNumber()
         }
     } while (!checkPhoneNumberValidity(phoneNumber));
     return (phoneNumber);
+}
+
+bool checkValue(int value)
+{
+    if (value > 0 && value < 9)
+        return (true);
+    std::cerr << "Error : Invalid id" << std::endl;
+    return (false);
 }

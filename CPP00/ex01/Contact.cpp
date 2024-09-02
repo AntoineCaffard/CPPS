@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:03:17 by acaffard          #+#    #+#             */
-/*   Updated: 2024/08/30 14:48:30 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:34:46 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Contact::Contact()
 
 Contact::~Contact()
 {
-    std::cout << "Contact " << this->nickName << " Deleted." << std::endl;
 }
 
 std::string Contact::getFirstName()

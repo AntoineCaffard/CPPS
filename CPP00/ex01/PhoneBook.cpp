@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:09:20 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/02 14:36:03 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:40:10 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,19 @@ void PhoneBook::printContact(int id)
 
 void PhoneBook::addNewContact()
 {
+    std::cout << "\033[2J\033[1;1H";
     this->contact_array[this->current_index].setFirstName();
     this->contact_array[this->current_index].setLastName();
     this->contact_array[this->current_index].setNickName();
     this->contact_array[this->current_index].setPhoneNumber();
     this->contact_array[this->current_index].setSecret();
     this->current_index = (this->current_index + 1) % 8;
+    std::cout << "\033[2J\033[1;1H";
 }
 
 void PhoneBook::print()
 {
+    std::cout << "\033[1;34mContact List :\033[0m" << std::endl << std::endl;
     for(int i = 0; i < 8; i++)
     {
         std::cout.flags(std::ios::right);
@@ -75,9 +78,8 @@ void PhoneBook::search()
     std::string value;
     do
     {
-        
         print();
-        std::cout << "Which contact do you want to see ? :";
+        std::cout << "\033[1;33mWhich contact do you want to see ? :\033[0m";
         if (std::cin.eof())
         {
             std::cin.clear();
@@ -85,7 +87,7 @@ void PhoneBook::search()
             std::cout << std::endl;
         }
         std::getline(std::cin, value);
-        std::cout << std::endl;
     } while (!checkValue(value));
+    std::cout << "\033[2J\033[1;1H";
     contact_array[value[0] - '0' - 1].print();
 }

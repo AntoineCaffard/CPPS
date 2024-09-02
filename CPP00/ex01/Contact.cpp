@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:03:17 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/02 14:34:46 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:33:43 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 Contact::Contact()
 {
-    firstName="";
+    firstName="";std::cout << "\033[2J\033[1;1H";
     lastName="";
     nickName="";
     phoneNumber="";
@@ -78,13 +78,15 @@ void Contact::setSecret()
 void Contact::print()
 {
     if (firstName.empty())
-        std::cout << "Empty Contact" << std::endl;
+        std::cout << "\033[1;34mEmpty Contact\033[0m" << std::endl << std::endl;
     else
     {
-        std::cout << this->firstName << std::endl;
-        std::cout << this->lastName << std::endl;
-        std::cout << this->nickName << std::endl;
-        std::cout << this->phoneNumber << std::endl;
-        std::cout << this->darkestSecret << std::endl << std::endl;
+        std::cout << "";
+        std::cout << "\033[1;33mFirst Name : \033[1;34m" << this->firstName << std::endl;
+        std::cout << "\033[1;33mLast Name : \033[1;34m" << this->lastName << std::endl;
+        std::cout << "\033[1;33mNickname : \033[1;34m" << this->nickName << std::endl;
+        std::cout << "\033[1;33mPhone Number : \033[1;34m" << this->phoneNumber << std::endl;
+        std::cout << "\033[1;33mDarkest Secret \033[1;34m: " << this->darkestSecret << std::endl << std::endl;
+        std::cout << "\033[0m";
     }
 }

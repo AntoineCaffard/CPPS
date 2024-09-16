@@ -30,6 +30,15 @@ bool checkPhoneNumberValidity(std::string phoneNumber)
     return (true);
 }
 
+int	skipSpaces(std::string str)
+{
+	int	i = 0;
+
+	while (str[i] && (str[i] == ' ' || str[i] < 13))
+		i++;
+	return (i);
+}
+
 std::string inputString(std::string type)
 {
     std::string value;
@@ -41,8 +50,9 @@ std::string inputString(std::string type)
             clearerr(stdin);
             std::cout << std::endl;
         }
-        std::cout << "\033[1;33mPlease insert the contact's " << type << " :" << std::endl << "-->\033[0m"; 
+        std::cout << "\033[1;33mPlease insert the contact's " << type << " :" << std::endl << "-->\033[0m";
         std::getline(std::cin, value);
+		value = value.substr(skipSpaces(value));
     } while (value.empty());
     return (value);
 }
@@ -52,7 +62,7 @@ std::string inputValidPhoneNumber()
     std::string phoneNumber;
     do
     {
-        std::cout << "\033[1;33mPlease insert the contact's phone number :" << std::endl << "-->\033[0m"; 
+        std::cout << "\033[1;33mPlease insert the contact's phone number :" << std::endl << "-->\033[0m";
         std::getline(std::cin, phoneNumber);
         if (std::cin.eof())
         {

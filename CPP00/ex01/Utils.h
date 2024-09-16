@@ -24,5 +24,6 @@ typedef enum e_input_type
 std::string inputValidPhoneNumber();
 std::string inputString(std::string type);
 bool		checkValue(std::string value);
+int			skipSpaces(std::string str);
 
 #endif

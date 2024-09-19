@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:24:20 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/02 16:40:50 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:53:12 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ std::string inputString(std::string type)
             clearerr(stdin);
             std::cout << std::endl;
         }
-        std::cout << "\033[1;33mPlease insert the contact's " << type << " :" << std::endl << "-->\033[0m"; 
+        std::cout << "\033[1;33mPlease insert the contact's " << type << " : " << std::endl << "-->\033[0m"; 
         std::getline(std::cin, value);
     } while (value.empty());
     return (value);

@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:03:17 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/02 16:33:43 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:48:16 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 Contact::Contact()
 {
-    firstName="";std::cout << "\033[2J\033[1;1H";
+    firstName="";
     lastName="";
     nickName="";
     phoneNumber="";

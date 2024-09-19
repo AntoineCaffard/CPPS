@@ -24,11 +24,11 @@ class Contact {
         std::string getNickName();
         std::string getPhoneNumber();
         std::string getSecret();
-        void        setFirstName();
-        void        setLastName();
-        void        setNickName();
-        void        setPhoneNumber();
-        void        setSecret();
+        void        setFirstName(std::string value);
+        void        setLastName(std::string value);
+        void        setNickName(std::string value);
+        void        setPhoneNumber(std::string value);
+        void        setSecret(std::string value);
         void        print();
 };
 

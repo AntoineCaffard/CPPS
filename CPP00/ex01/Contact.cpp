@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:03:17 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/02 16:48:16 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:24:25 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,30 @@ std::string Contact::getSecret()
     return (this->darkestSecret);
 }
 
-void Contact::setFirstName()
+void Contact::setFirstName(std::string value)
 {
-    this->firstName = inputString(("first name"));
+    this->firstName = value;
 }
 
-void Contact::setLastName()
+void Contact::setLastName(std::string value)
 {
-    this->lastName = inputString(("last name"));
+
+    this->lastName = value;
 }
 
-void Contact::setNickName()
+void Contact::setNickName(std::string value)
 {
-    this->nickName = inputString(("nickname"));
+    this->nickName = value;
 }
 
-void Contact::setPhoneNumber()
+void Contact::setPhoneNumber(std::string value)
 {
-    this->phoneNumber = inputValidPhoneNumber();
+    this->phoneNumber = value;
 }
 
-void Contact::setSecret()
+void Contact::setSecret(std::string value)
 {
-    this->darkestSecret = inputString(("darkest secret"));
+    this->darkestSecret = value;
 }
 
 void Contact::print()

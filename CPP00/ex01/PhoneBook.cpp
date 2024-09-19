@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:09:20 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/06 12:51:48 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:23:40 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 PhoneBook::PhoneBook()
 {
     current_index = 0;
-    contact_array[8];
 }
 
 PhoneBook::~PhoneBook()
@@ -32,14 +31,18 @@ void PhoneBook::printContact(int id)
 
 void PhoneBook::addNewContact()
 {
-    std::cout << "\033[2J\033[1;1H";
-    this->contact_array[this->current_index].setFirstName();
-    this->contact_array[this->current_index].setLastName();
-    this->contact_array[this->current_index].setNickName();
-    this->contact_array[this->current_index].setPhoneNumber();
-    this->contact_array[this->current_index].setSecret();
+	std::system("clear");
+    this->contact_array[this->current_index].setFirstName(inputString("first name"));
+	std::system("clear");
+    this->contact_array[this->current_index].setLastName(inputString("last name"));
+	std::system("clear");
+    this->contact_array[this->current_index].setNickName(inputString("nickname"));
+	std::system("clear");
+    this->contact_array[this->current_index].setPhoneNumber(inputValidPhoneNumber());
+	std::system("clear");
+    this->contact_array[this->current_index].setSecret(inputString("darkest secret"));
     this->current_index = (this->current_index + 1) % 8;
-    std::cout << "\033[2J\033[1;1H";
+	std::system("clear");
 }
 
 void PhoneBook::print()
@@ -63,7 +66,7 @@ void PhoneBook::print()
         else 
             std::cout << this->contact_array[i].getLastName();
         std::cout << "|";
-        std::cout.width(10);    int value;
+        std::cout.width(10);
         if (this->contact_array[i].getNickName().length() > 10)
             std::cout << this->contact_array[i].getNickName().substr(0, 9) + ".";
         else 
@@ -88,6 +91,6 @@ void PhoneBook::search()
         }
         std::getline(std::cin, value);
     } while (!checkValue(value));
-    std::cout << "\033[2J\033[1;1H";
-    contact_array[value[0] - '0' - 1].print();
+    std::system("clear");
+	this->printContact(value[0] - '0' - 1);
 }

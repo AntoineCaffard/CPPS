@@ -1,5 +1,5 @@
 NAME = phoneBook
-CC = c++
+CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
@@ -10,10 +10,10 @@ INCLUDES = Contact.h Utils.h PhoneBook.h
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.c $(INCLUDES)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o : %.cpp $(INCLUDES)
+	$(CXX) $(CFLAGS) -c $< -o $@
 
 clean :
 	$(RM) $(OBJS)

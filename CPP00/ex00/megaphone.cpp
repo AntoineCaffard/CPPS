@@ -8,7 +8,7 @@ void printUppercase(int ac, char **av)
 	to_print = av[1];
 	for (int i = 2; i <= ac - 1; i++)
 		to_print.append(av[i]);
-	for (int i = 0; i < to_print.length(); i++)
+	for (size_t i = 0; i < to_print.length(); i++)
 	{
 		if (to_print[i] >= 'a' && to_print[i] <= 'z')
 			to_print[i] -= 'a' - 'A';

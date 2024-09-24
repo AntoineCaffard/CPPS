@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:09:20 by acaffard          #+#    #+#             */
-/*   Updated: 2024/09/19 17:23:40 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:44:50 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ void PhoneBook::print()
     for(int i = 0; i < 8; i++)
     {
         std::cout.flags(std::ios::right);
-        std::cout.width(10);
+        std::cout << std::setw(10);
         std::cout << i + 1 << "|";
         std::cout.flags(std::ios::right);
-        std::cout.width(10);
+        std::cout << std::setw(10);
         if (this->contact_array[i].getFirstName().length() > 10)
             std::cout << this->contact_array[i].getFirstName().substr(0, 9) + ".";
         else 
             std::cout << this->contact_array[i].getFirstName();
         std::cout << "|";
-        std::cout.width(10);
+        std::cout << std::setw(10);
         if (this->contact_array[i].getLastName().length() > 10)
             std::cout << this->contact_array[i].getLastName().substr(0, 9) + ".";
         else 
             std::cout << this->contact_array[i].getLastName();
         std::cout << "|";
-        std::cout.width(10);
+        std::cout << std::setw(10);
         if (this->contact_array[i].getNickName().length() > 10)
             std::cout << this->contact_array[i].getNickName().substr(0, 9) + ".";
         else 
@@ -93,4 +93,16 @@ void PhoneBook::search()
     } while (!checkValue(value));
     std::system("clear");
 	this->printContact(value[0] - '0' - 1);
+}
+
+void PhoneBook::fill()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        this->contact_array[i].setFirstName("AutoFilled");
+        this->contact_array[i].setLastName("AutoFilled");
+        this->contact_array[i].setNickName("AutoFilled");
+        this->contact_array[i].setPhoneNumber("4242424242");
+        this->contact_array[i].setSecret("AutoFilled");
+    }
 }

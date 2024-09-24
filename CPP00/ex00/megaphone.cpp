@@ -9,10 +9,7 @@ void printUppercase(int ac, char **av)
 	for (int i = 2; i <= ac - 1; i++)
 		to_print.append(av[i]);
 	for (size_t i = 0; i < to_print.length(); i++)
-	{
-		if (to_print[i] >= 'a' && to_print[i] <= 'z')
-			to_print[i] -= 'a' - 'A';
-	}
+		to_print[i] = toupper(to_print[i]);
 	std::cout << to_print << std::endl;
 }
 

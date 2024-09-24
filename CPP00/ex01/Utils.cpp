@@ -50,6 +50,20 @@ bool	checkValueEmpty(std::string str)
 	return (true);
 }
 
+bool    isPrintable(std::string str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        if (str[i] < 32 || str[i] > 126)
+        {
+            std::system("clear");
+            std::cerr << "\033[1;31mError : Not Printable chars in string\033[0m" << std::endl << std::endl;
+            return (false);
+        }
+    }
+    return (true);
+}
+
 std::string inputString(std::string type)
 {
     std::string value;
@@ -59,12 +73,11 @@ std::string inputString(std::string type)
         {
             std::cin.clear();
             clearerr(stdin);
-            std::cout << std::endl;
         }
         std::cout << "\033[1;33mPlease insert the contact's " << type << " :" << std::endl << "-->\033[0m";
         std::getline(std::cin, value);
 		value = value.substr(skipSpaces(value));
-    } while (checkValueEmpty(value));
+    } while (checkValueEmpty(value) || !isPrintable(value));
     return (value);
 }
 

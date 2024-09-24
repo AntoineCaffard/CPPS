@@ -1,4 +1,4 @@
-NAME = Accounts
+NAME = ex02
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf

@@ -20,6 +20,7 @@ class PhoneBook {
 		void	print();
 		void	printContact(int id);
 		void	addNewContact();
+		void	fill();
 };
 
 #endif

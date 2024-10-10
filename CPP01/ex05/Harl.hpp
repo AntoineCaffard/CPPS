@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 15:08:00 by acaffard          #+#    #+#             */
-/*   Updated: 2024/10/10 10:22:02 by acaffard         ###   ########.fr       */
+/*   Created: 2024/10/10 09:04:12 by acaffard          #+#    #+#             */
+/*   Updated: 2024/10/10 11:21:14 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #include <iostream>
 #include <string>
 
-
-class Weapon
+class Harl
 {
 	private:
-		std::string _type;
-	public :
-		Weapon(std::string type);
-		~Weapon();
-		std::string getType();
-		void		setType(std::string type);
+		void	debug(void);
+		void	info(void);
+		void	warning(void);
+		void	error(void);
+	public:
+		Harl();
+		~Harl();
+		void	complain(std::string level);
 };
+

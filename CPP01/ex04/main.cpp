@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaffard <acaffard@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:34:26 by acaffard          #+#    #+#             */
-/*   Updated: 2024/10/07 19:24:17 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/10/10 08:54:51 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse(int ac, char **av)
 	return 1;
 }
 
-int	main(int ac, char **av)
+int	mySed(int ac, char **av)
 {
 	if (!parse(ac, av))
 		return (1);
@@ -46,11 +46,17 @@ int	main(int ac, char **av)
 	new_file.open((((std::string)av[1])+ ".replace").c_str());
 	if (!new_file)
 	{
-		std::cerr << "Error : Failed to create new file" << std::endl;
+		std::cerr << "Error : Failed to open "<< (((std::string)av[1])+ ".replace") << std::endl;
 		return 1;
 	}
 	StringModifier	test(file_content, av[2], av[3]);
 	test.modify();
 	new_file << test.getModifiedString();
 	new_file.close();
+	return 0;
+}
+
+int	main(int ac, char **av)
+{
+	return (mySed(ac, av));
 }

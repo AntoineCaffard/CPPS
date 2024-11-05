@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:15:50 by acaffard          #+#    #+#             */
-/*   Updated: 2024/11/05 08:58:53 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/11/05 09:01:12 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int	StringModifier::modifyOnce()
 }
 void	StringModifier::modify()
 {
-	int	test = 0;
-	while(test == 0)
-		test = this->modifyOnce();
+	while(this->modifyOnce() == 0);	
 }
 
 std::string StringModifier::getModifiedString()

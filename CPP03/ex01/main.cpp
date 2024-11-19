@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acaffard <acaffard@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 13:56:41 by acaffard          #+#    #+#             */
-/*   Updated: 2024/10/11 15:09:55 by acaffard         ###   ########.fr       */
+/*   Created: 2024/11/19 14:08:00 by acaffard          #+#    #+#             */
+/*   Updated: 2024/11/19 14:08:00 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
+# include "ClapTrap.hpp"
 
-int main( void )
+int main()
 {
-	Fixed a;
-	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+	ClapTrap claptrap("ClapTrap");
+	ClapTrap claptrap2(claptrap);
 
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << a++ << std::endl;
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
-	std::cout << Fixed::max( a, b ) << std::endl;
+	claptrap.attack("target");
+	claptrap.takeDamage(5);
+	claptrap.beRepaired(3);
+
+	claptrap2.attack("target");
+	claptrap2.takeDamage(5);
+	claptrap2.beRepaired(3);
+
+	return 0;
 }

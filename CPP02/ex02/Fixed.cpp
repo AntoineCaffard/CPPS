@@ -63,7 +63,7 @@ int	Fixed::toInt()const
 	return (this->_value >> this->_nb_bits);
 }
 
-float	Fixed::toFloat()const
+float	Fixed::toFloat() const
 {
 	return ((float)this->_value / (float)(1 << this->_nb_bits));
 }

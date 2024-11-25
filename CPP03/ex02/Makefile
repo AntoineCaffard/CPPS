@@ -3,8 +3,8 @@ CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
-SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
-INCLUDES = ClapTrap.hpp ScavTrap.hpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+INCLUDES = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp
 OBJS = $(SRC:.cpp=.o)
 
 all : $(NAME)

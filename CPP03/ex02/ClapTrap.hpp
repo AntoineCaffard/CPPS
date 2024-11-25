@@ -6,12 +6,13 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:10:54 by acaffard          #+#    #+#             */
-/*   Updated: 2024/11/25 10:06:32 by acaffard         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:04:57 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+#pragma once
 
 class ClapTrap
 {
@@ -24,7 +25,7 @@ public:
 	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap &copy);
-	~ClapTrap();
+	virtual ~ClapTrap();
 	ClapTrap& operator=(const ClapTrap &copy);
 public :
 	void attack(std::string const &target);

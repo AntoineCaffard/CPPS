@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:28:43 by acaffard          #+#    #+#             */
-/*   Updated: 2024/11/05 09:15:47 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:17:05 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ Fixed::Fixed()
 
 Fixed::Fixed(const int value)
 {
+	_value = value << _nb_bits;
 }
 
 Fixed::Fixed(const float value)
 {
+	_value = roundf(value * (1 << _nb_bits));
 }
 
 Fixed::Fixed(const Fixed &copy)
@@ -44,7 +46,7 @@ Fixed::~Fixed()
 Fixed& Fixed::operator=(const Fixed &copy)
 {
 	std::cout << "Copy Assingnment Constructor Called" << std::endl;
-	_value = copy._value;
+	this->setRawBits(copy.getRawBits());
 	return (*this);
 }
 
@@ -60,13 +62,16 @@ void Fixed::setRawBits(int const raw)
 
 int	Fixed::toInt()const
 {
+	return (_value >> _nb_bits);
 }
 
 float	Fixed::toFloat()const
 {
+	return ((float)_value / (1 << _nb_bits));
 }
 
 std::ostream&	operator<<(std::ostream &o, Fixed const &fixed)
 {
+	o << fixed.toFloat();
 	return o;
 }

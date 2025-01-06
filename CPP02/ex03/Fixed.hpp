@@ -6,9 +6,11 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:14:46 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/06 12:32:40 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/06 13:29:34 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <cmath>
 #include <iostream>
@@ -41,10 +43,10 @@ class Fixed
 		bool operator>=(const Fixed &src);
 		bool operator==(const Fixed &src);
 		bool operator!=(const Fixed &src);
-		Fixed operator*(const Fixed &src);
-		Fixed operator/(const Fixed &src);
 		Fixed operator+(const Fixed &src);
 		Fixed operator-(const Fixed &src);
+		Fixed operator*(const Fixed &src);
+		Fixed operator/(const Fixed &src);
 		Fixed operator++();
 		Fixed operator--();
 		Fixed operator--(int);

@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 13:28:43 by acaffard          #+#    #+#             */
-/*   Updated: 2024/10/10 14:41:43 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:17:25 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Fixed::~Fixed()
 Fixed& Fixed::operator=(const Fixed &copy)
 {
 	if (this != &copy)
-		this->_value = copy.getRawBits();
+		this->setRawBits(copy.getRawBits());
 	return (*this);
 }
 

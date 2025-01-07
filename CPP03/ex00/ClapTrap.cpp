@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaffard <acaffard@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:08:54 by acaffard          #+#    #+#             */
-/*   Updated: 2024/11/19 14:08:54 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:38:26 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ ClapTrap::ClapTrap(const ClapTrap &copy)
 
 ClapTrap& ClapTrap::ClapTrap::operator=(const ClapTrap &copy)
 {
-	if (this != &copy)
-	{
-		this->_name = copy._name;
-		this->_hitPoints = copy._hitPoints;
-		this->_energyPoints = copy._energyPoints;
-		this->_attackDamage = copy._attackDamage;
-	}
+	this->_name = copy._name;
+	this->_hitPoints = copy._hitPoints;
+	this->_energyPoints = copy._energyPoints;
+	this->_attackDamage = copy._attackDamage;
 	return (*this);
 }
 

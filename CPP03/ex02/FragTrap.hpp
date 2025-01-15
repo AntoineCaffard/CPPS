@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 12:01:17 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/08 07:43:04 by acaffard         ###   ########.fr       */
+/*   Created: 2025/01/08 08:20:57 by acaffard          #+#    #+#             */
+/*   Updated: 2025/01/08 08:23:24 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap
+class FragTrap : public ClapTrap
 {
 	public :
-		ScavTrap();
-		ScavTrap(const std::string& name);
-		ScavTrap(const ScavTrap& copy);
-		~ScavTrap();
-		ScavTrap& operator=(const ScavTrap &copy);
+		FragTrap();
+		FragTrap(const std::string& name);
+		FragTrap(const FragTrap& copy);
+		~FragTrap();
+		FragTrap& operator=(const FragTrap &copy);
 
-		void	attack(const std::string& target);
-		void	guardGate();
+		void highFivesGuys(void);
 };
 
-std::ostream& operator<<(std::ostream &o, ScavTrap &scavtrap);
+std::ostream& operator<<(std::ostream &o, FragTrap &fragtrap);

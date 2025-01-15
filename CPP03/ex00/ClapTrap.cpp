@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 08:52:34 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/07 11:45:10 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/08 08:15:01 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ ClapTrap::~ClapTrap()
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap &copy)
 {
-	std::cout << "ClapTrap : Copy operator called" << std::endl;
 	this->_name = copy._name;
 	this->_hitpoints = copy._hitpoints;
 	this->_energypoints = copy._energypoints;

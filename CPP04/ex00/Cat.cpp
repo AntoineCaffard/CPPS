@@ -14,18 +14,18 @@
 
 Cat::Cat() : Animal("Cat")
 {
-	std::cout << "Cat : Default Constructor Called" << std::endl;
+	std::cout << "\e[1;32mCat : Default Constructor Called\e[0m" << std::endl;
 }
 
 Cat::Cat(const Cat &copy) : Animal(copy)
 {
-	std::cout << "Cat : Copy Constructor Called" << std::endl;
+	std::cout << "\e[1;32mCat : Copy Constructor Called\e[0m" << std::endl;
 	*this = copy;
 }
 
 Cat::~Cat()
 {
-	std::cout << "Cat : Destructor Called" << std::endl;
+	std::cout << "\e[1;31mCat : Destructor Called\e[0m" << std::endl;
 }
 
 Cat& Cat::operator=(const Cat &copy)

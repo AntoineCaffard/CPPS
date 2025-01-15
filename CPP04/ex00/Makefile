@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acaffard <acaffard@student.42angouleme.    +#+  +:+       +#+         #
+#    By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:56:00 by acaffard          #+#    #+#              #
-#    Updated: 2025/01/14 12:32:16 by acaffard         ###   ########.fr        #
+#    Updated: 2025/01/15 08:36:22 by acaffard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
-SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp
-INCLUDES = Animal.hpp Dog.hpp Cat.hpp
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+INCLUDES = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
 OBJS = $(SRC:.cpp=.o)
 
 all : $(NAME)
@@ -34,7 +34,5 @@ fclean : clean
 	$(RM) $(NAME)
 
 re : fclean all
-
-bonus : $(NAME)
 
 .PHONY : all, clean, fclean, re

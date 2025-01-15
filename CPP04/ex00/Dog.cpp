@@ -2,18 +2,18 @@
 
 Dog::Dog() : Animal("Dog")
 {
-	std::cout << "Dog : Default Constructor Called" << std::endl;
+	std::cout << "\e[1;32mDog : Default Constructor Called\e[0m" << std::endl;
 }
 
 Dog::Dog(const Dog &copy) : Animal(copy)
 {
-	std::cout << "Dog : Copy Constructor Called" << std::endl;
+	std::cout << "\e[1;32mDog : Copy Constructor Called\e[0m" << std::endl;
 	*this = copy;
 }
 
 Dog::~Dog()
 {
-	std::cout << "Dog : Destructor Called" << std::endl;
+	std::cout << "\e[1;31mDog : Destructor Called\e[0m" << std::endl;
 }
 
 Dog& Dog::operator=(const Dog &copy)

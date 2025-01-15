@@ -14,23 +14,23 @@
 
 Animal::Animal() : _type("Basic Animal")
 {
-	std::cout << "Animal : Default Constructor Called" << std::endl;
+	std::cout << "\e[1;32mAnimal : Default Constructor Called\e[0m" << std::endl;
 }
 
 Animal::Animal(const std::string &type): _type(type)
 {
-	std::cout << "Animal : Attribute Constructor Called" << std::endl;
+	std::cout << "\e[1;32mAnimal : Attribute Constructor Called\e[0m" << std::endl;
 }
 
 Animal::Animal(const Animal &copy)
 {
-	std::cout << "Animal : Copy Constructor Called" << std::endl;
+	std::cout << "\e[1;32mAnimal : Copy Constructor Called\e[0m" << std::endl;
 	*this = copy;
 }
 
 Animal::~Animal()
 {
-	std::cout << "Animal : Destructor Called" << std::endl;
+	std::cout << "\e[1;31mAnimal : Destructor Called\e[0m" << std::endl;
 }
 
 Animal& Animal::operator=(const Animal &copy)
@@ -39,7 +39,7 @@ Animal& Animal::operator=(const Animal &copy)
 	return(*this);
 }
 
-std::string	Animal::getType() const
+const std::string&	Animal::getType() const
 {
 	return (this->_type);
 }

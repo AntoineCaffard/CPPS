@@ -6,11 +6,11 @@
 #    By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 13:56:00 by acaffard          #+#    #+#              #
-#    Updated: 2025/01/15 10:56:31 by acaffard         ###   ########.fr        #
+#    Updated: 2025/01/15 12:42:26 by acaffard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = CPP04-00
+NAME = CPP04-01
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -g -std=c++98
 RM = rm -rf

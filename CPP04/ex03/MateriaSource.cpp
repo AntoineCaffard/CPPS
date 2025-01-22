@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 11:21:44 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:01:19 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:38:57 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ MateriaSource::MateriaSource()
 
 MateriaSource::MateriaSource(const MateriaSource &copy)
 {
+	for (int i = 0; i < 4; ++i)
+		_known_materias[i] = nullptr;
 	*this = copy;
 }
 
@@ -27,11 +29,10 @@ MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
 {
 	for (int i = 0; i < 4; ++i)
 	{
-		if (copy._known_materias[i])
-		{
+		if (_known_materias[i])
 			delete _known_materias[i];
+		if (copy._known_materias[i])
 			_known_materias[i] = copy._known_materias[i]->clone();
-		}
 	}
 	return *this;
 }

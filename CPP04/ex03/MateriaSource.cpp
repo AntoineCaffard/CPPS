@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 11:21:44 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/23 10:53:17 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:55:38 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ MateriaSource::MateriaSource(const MateriaSource &copy)
 
 MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
 {
-	if (*this != copy)
+	if (this != &copy)
 	{
 		for (int i = 0; i < 4; ++i)
 		{

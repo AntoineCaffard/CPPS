@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:46:50 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/23 10:52:09 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:55:19 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ Character::Character(const Character &copy)
 
 Character& Character::operator=(const Character &copy)
 {
-	if (*this != copy)
+	if (this != &copy)
 	{
 		this->_name = copy._name;
 		_unequiped_index = copy._unequiped_index;

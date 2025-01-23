@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:12:25 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/23 10:52:49 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:55:29 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Ice::~Ice()
 
 Ice& Ice::operator=(const Ice &copy)
 {
-	if (*this != copy)
+	if (this != &copy)
 		this->_type = copy.getType();
 	return *this;
 }

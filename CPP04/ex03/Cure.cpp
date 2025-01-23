@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 08:39:50 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:03:06 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:52:38 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ Cure::~Cure()
 
 Cure& Cure::operator=(const Cure &copy)
 {
-	this->_type = copy.getType();
+	if (*this != copy)
+		this->_type = copy.getType();
 	return *this;
 }
 

@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 08:24:38 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:01:44 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:51:41 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ AMateria::AMateria(const AMateria &copy)
 
 AMateria	&AMateria::operator=(const AMateria &copy)
 {
-	this->_type = copy._type;
+	if (*this != copy)
+		this->_type = copy._type;
 	return *this;
 }
 

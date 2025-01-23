@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:46:50 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:13:46 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/23 10:52:09 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,24 @@ Character::Character(const Character &copy)
 
 Character& Character::operator=(const Character &copy)
 {
-	this->_name = copy._name;
-	_unequiped_index = copy._unequiped_index;
-	for (int i = 0; i < 4; ++i)
+	if (*this != copy)
 	{
-		if (this->_materias[i] != nullptr)
-				delete this->_materias[i];
-		if(copy._materias[i])
-			this->_materias[i] = copy._materias[i]->clone();
-	}
-	for (int i = 0; i < _unequiped_index; ++i)
-	{
-		if (this->_unequiped[i] != nullptr)
-				delete this->_unequiped[i];
-		if(copy._unequiped[i])
-			this->_unequiped[i] = copy._unequiped[i]->clone();
+		this->_name = copy._name;
+		_unequiped_index = copy._unequiped_index;
+		for (int i = 0; i < 4; ++i)
+		{
+			if (this->_materias[i] != nullptr)
+					delete this->_materias[i];
+			if(copy._materias[i])
+				this->_materias[i] = copy._materias[i]->clone();
+		}
+		for (int i = 0; i < _unequiped_index; ++i)
+		{
+			if (this->_unequiped[i] != nullptr)
+					delete this->_unequiped[i];
+			if(copy._unequiped[i])
+				this->_unequiped[i] = copy._unequiped[i]->clone();
+		}
 	}
 	return *this;
 }

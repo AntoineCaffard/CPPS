@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:22:08 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/27 11:43:38 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:44:45 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ class Bureaucrat
 	private :
 		const std::string	_name;
 		int					_grade;
+		
 	public :
 		Bureaucrat(const std::string &name, int grade);
 		Bureaucrat(const Bureaucrat &copy);
 		virtual ~Bureaucrat();
 		Bureaucrat	&operator=(const Bureaucrat &copy);
-
+	public :
 		std::string	getName() const;
 		int			getGrade() const;
 		void		IncreaseGrade();
 		void		DecreaseGrade();
+		void		signForm(Form &form);
 		
 	public :
 		class GradeTooHighException : public std::exception

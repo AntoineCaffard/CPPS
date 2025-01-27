@@ -1,51 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 11:22:08 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/27 11:43:38 by acaffard         ###   ########.fr       */
+/*   Created: 2025/01/27 10:54:03 by acaffard          #+#    #+#             */
+/*   Updated: 2025/01/27 12:04:55 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 
-class Form;
+class	Bureaucrat;
 
-class Bureaucrat
+class Form
 {
 	private :
 		const std::string	_name;
-		int					_grade;
+		const int			_sign_grade;
+		const int			_exec_grade;
+		bool				_is_signed;
 	public :
-		Bureaucrat(const std::string &name, int grade);
-		Bureaucrat(const Bureaucrat &copy);
-		virtual ~Bureaucrat();
-		Bureaucrat	&operator=(const Bureaucrat &copy);
-
+		Form(const std::string &name, int sign_grade, int exec_grade);
+		Form(const Form &copy);
+		virtual ~Form();
+		Form &operator=(const Form &copy);
+	public :
+		void		print(std::ostream &o);
+		int			getSignGrade() const ;
+		int			getExecGrade() const;
+		bool		getSignStatus() const;
+		void		beSigned(const Bureaucrat &bureaucrat);
 		std::string	getName() const;
-		int			getGrade() const;
-		void		IncreaseGrade();
-		void		DecreaseGrade();
-		
 	public :
 		class GradeTooHighException : public std::exception
 		{
 			virtual const char *what() const throw()
 			{
-				return ("Error : Grade is too High");
+				return ("Grade is too High");
 			};
 		};
 		class GradeTooLowException : public std::exception
 		{
 			virtual const char *what() const throw()
 			{
-				return ("Error : Grade is too Low");
+				return ("Grade is too Low");
+			};
+		};
+		class FormAlreadySignedException : public std::exception
+		{
+			virtual const char *what() const throw()
+			{
+				return ("this form is already signed");
 			};
 		};	
 };
 
-std::ostream &operator<<(std::ostream &o, const Bureaucrat &bureaucrat);
+std::ostream& operator<<(std::ostream &o, Form &form);

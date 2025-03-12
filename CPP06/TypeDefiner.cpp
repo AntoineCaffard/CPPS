@@ -32,7 +32,7 @@ bool isFloat(std::string &value)
 	{
 		char *pos;
 		std::strtof(value.c_str(), &pos);
-		return pos == '\0';
+		return (*pos == 'f' && !*(pos + 1));
 	}
 	catch(...)
 	{
@@ -46,7 +46,7 @@ bool isDouble(std::string &value)
 	{
 		char *pos;
 		std::strtod(value.c_str(), &pos);
-		return pos == '\0';
+		return *pos == '\0';
 	}
 	catch(...)
 	{
@@ -59,7 +59,7 @@ bool isChar(std::string &value)
 	if (value.length() == 1)
 		return true;
 	return false;
-	
+
 }
 
 bool isSpecial(std::string &value)
@@ -72,14 +72,14 @@ bool isSpecial(std::string &value)
 int	defineType(std::string &value)
 {
 	if (isSpecial(value))
-		return e_type::SPECIAL;
+		return SPECIAL;
 	if (isChar(value))
-		return e_type::CHAR;
+		return CHAR;
 	if (isInt(value))
-		return e_type::INT;
+		return INT;
 	if (isFloat(value))
-		return e_type::FLOAT;
+		return FLOAT;
 	if (isDouble(value))
-		return e_type::DOUBLE;
-	return e_type::IMPOSSIBLE;
+		return DOUBLE;
+	return IMPOSSIBLE;
 }

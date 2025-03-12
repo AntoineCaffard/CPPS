@@ -29,5 +29,5 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &copy)
 	return *this;
 }
 
-static void	convert(std::string value)
-{}
+// static void	convert(std::string value)
+// {}

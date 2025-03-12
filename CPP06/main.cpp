@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include "TypeDefiner.hpp"
 
 int main(int argc, char **argv)
 {
@@ -19,6 +20,7 @@ int main(int argc, char **argv)
 		std::cerr << "Error : You have to input one argument" << std::endl;
 		return 1;
 	}
-	ScalarConverter::convert(argv[1]);
+	std::string str(argv[1]);
+	std::cout << defineType(str);
 	return(0);
 }

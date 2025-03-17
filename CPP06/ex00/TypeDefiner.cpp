@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 08:30:27 by acaffard          #+#    #+#             */
-/*   Updated: 2025/02/20 09:52:35 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:24:20 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	defineType(std::string &value)
 {
 	if (isSpecial(value))
 		return SPECIAL;
-	if (isChar(value))
-		return CHAR;
 	if (isInt(value))
 		return INT;
+	if (isChar(value))
+		return CHAR;
 	if (isFloat(value))
 		return FLOAT;
 	if (isDouble(value))

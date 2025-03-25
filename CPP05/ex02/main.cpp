@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:32:50 by acaffard          #+#    #+#             */
-/*   Updated: 2025/01/27 16:25:32 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:37:10 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,51 +18,73 @@
 
 int main()
 {
-	// {
-	// 	try
-	// 	{
-	// 		Bureaucrat John("John", 10);
-	// 		// Bureaucrat Donald("Donald", -100);
-	// 		// Bureaucrat Random("Random", 250);
-
-	// 		// Bureaucrat Donald("Donald", 1);
-	// 		// Donald.IncreaseGrade();
-
-	// 		// Bureaucrat John("John", 10);
-	// 		// Bureaucrat Random("Random", 150);
-	// 		// Random.DecreaseGrade();
-
-	// 		Bureaucrat Random("Random", 149);
-	// 		Random.DecreaseGrade();
-	// 		John.IncreaseGrade();
-
-	// 		std::cout << John << Random;
-	// 		// std::cout << Donald << std::endl;
-	// 		// std::cout << Random << std::endl;
-	// 	}
-	// 	// catch(const std::exception& e)
-	// 	// {
-	// 	// 	std::cerr << e.what() << std::endl;
-	// 	// }
-	// }
 	{
+		std::cout << "\033[1;34mTEST : Can't exec because form not signed\033[0m" << std::endl;
 		try
 		{
-			Bureaucrat John("John", 1);
-			Bureaucrat Random("Random", 149);
-			RobotomyRequestForm wowo("Michel");
-			PresidentialPardonForm wawa ("Robert");
-			ShrubberyCreationForm wiwi("Jackie");
-			Random.signForm(wowo);
-			John.signForm(wowo);
-			John.signForm(wawa);
-			John.signForm(wiwi);
-			Random.signForm(wawa);
-			Random.executeForm(wawa);
-			Random.executeForm(wowo);
-			John.executeForm(wawa);
-			John.executeForm(wowo);
-			John.executeForm(wiwi);
+			Bureaucrat random("Random", 149);
+			PresidentialPardonForm pardon("Leon Kums");
+			random.executeForm(pardon);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	{
+		std::cout << "\033[1;34mTEST : Can't exec because grade too low\033[0m" << std::endl;
+		try
+		{
+			Bureaucrat donald("Donald", 1);
+			Bureaucrat random("Random", 149);
+			RobotomyRequestForm xify("Leon Kums");
+			donald.signForm(xify);
+			random.executeForm(xify);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	{
+		std::cout << "\033[1;34mTEST : Pardon no errors\033[0m" << std::endl;
+		try
+		{
+			Bureaucrat doland("Doland", 1);
+			
+			PresidentialPardonForm pardon("Leon Kums");
+			doland.signForm(pardon);
+			doland.executeForm(pardon);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	{
+		std::cout << "\033[1;34mTEST : Robotomy no errors\033[0m" << std::endl;
+		try
+		{
+			Bureaucrat doland("Doland", 1);
+			
+			RobotomyRequestForm xify("Leon Kums");
+			doland.signForm(xify);
+			doland.executeForm(xify);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	{
+		std::cout << "\033[1;34mTEST : Shrubbery no errors\033[0m" << std::endl;
+		try
+		{
+			Bureaucrat doland("Doland", 1);
+			
+			ShrubberyCreationForm declassify("Leon_Kums");
+			doland.signForm(declassify);
+			doland.executeForm(declassify);
 		}
 		catch(const std::exception& e)
 		{

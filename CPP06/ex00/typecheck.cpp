@@ -28,7 +28,7 @@ bool	is_int(std::string value)
 	double	result;
 	char	*endPointer;
 
-	if (value.find('.'))
+	if (value.find('.') != -1)
 		return false;
 	result = strtod(value.c_str(), &endPointer);
 	if (*endPointer)

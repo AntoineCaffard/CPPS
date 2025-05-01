@@ -65,7 +65,6 @@ void convert_int(std::string value)
 {
 	double	result;
 	
-	std::cout << "INT" << std::endl;
 	result = strtod(value.c_str(), NULL);
 	print_char(result);
 	std::cout << "int: " << static_cast<int>(result) << std::endl;
@@ -77,7 +76,6 @@ void convert_float(std::string value)
 {
 	double	result;
 	
-	std::cout << "FLOAT" << std::endl;
 	result = strtod(value.c_str(), NULL);
 	print_char(result);
 	print_int(result);
@@ -89,7 +87,6 @@ void convert_double(std::string value)
 {
 	double	result;
 	
-	std::cout << "DOUBLE" << std::endl;
 	result = strtod(value.c_str(), NULL);
 	if (errno == ERANGE)
 		(result > 0) ? print_special("+inf") : print_special("-inf");

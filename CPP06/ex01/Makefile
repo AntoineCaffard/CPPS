@@ -25,4 +25,4 @@ re : fclean all
 
 bonus : $(NAME)
 
-.PHONY : all, clean, fclean, re%
+.PHONY : all, clean, fclean, re

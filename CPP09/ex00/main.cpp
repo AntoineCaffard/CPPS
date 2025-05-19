@@ -14,8 +14,25 @@
 
 int main(int ac, char **av)
 {
-	(void) ac;
-	(void) av;
-	BitcoinExchange exchanger;
-	exchanger.parseLine("2017-10-19 | 19");
+	std::string line;
+	std::ifstream file;
+
+	try
+	{
+		if (ac != 2 || !av[1])
+			throw ArgumentException();
+		BitcoinExchange exchanger;
+		
+		std::ifstream file(av[1]);
+		if (!file)
+			throw FileOpenFailException();
+		std::getline(file, line);
+		while (std::getline(file, line))
+			exchanger.processLine(line);
+		file.close();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }

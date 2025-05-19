@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 16:04:15 by acaffard          #+#    #+#             */
-/*   Updated: 2025/04/28 17:11:49 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:22:47 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,12 @@ void convert_double(std::string value)
 	
 	result = strtod(value.c_str(), NULL);
 	if (errno == ERANGE)
-		(result > 0) ? print_special("+inf") : print_special("-inf");
-	print_char(result);
-	print_int(result);
-	print_float(result);
-	std::cout << "double: " << result << std::endl;
+		(result < 0) ? print_special("-inf") : print_special("inf");
+	else
+	{
+		print_char(result);
+		print_int(result);
+		print_float(result);
+		std::cout << "double: " << result << std::endl;
+	}
 }

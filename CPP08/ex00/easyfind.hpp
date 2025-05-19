@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:12:05 by acaffard          #+#    #+#             */
-/*   Updated: 2025/03/24 12:08:22 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:53:37 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,6 @@ void	fill(...)
 {
 	std::cerr << "Wololo" << std::endl;
 };
-
-
-// template <typename T>
-// void	fill(std::list<T> &container, unsigned int nb_elements, int range)
-// {
-// 	for(unsigned int i = 0; i < nb_elements; ++i)
-// 		container.push_back(rand() % range);
-// };
-
-// template <typename T>
-// void	fill(std::vector<T> &container, unsigned int nb_elements, int range)
-// {
-// 	for(unsigned int i = 0; i < nb_elements; ++i)
-// 		container.push_back(rand() % range);
-// };
-
-// template <typename T>
-// void	fill(std::deque<T> &container, unsigned int nb_elements, int range)
-// {
-// 	for(unsigned int i = 0; i < nb_elements; ++i)
-// 		container.push_back(rand() % range);
-// };
 
 template <typename T>
 typename T::iterator	easyfind(T container, int to_find)

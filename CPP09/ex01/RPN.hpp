@@ -5,9 +5,6 @@
 #include <algorithm>
 #include <sstream>
 
-
-
-
 void    initRPNCalculator(const std::string &input);
 void    fillStack(std::stack<std::string> &stk, const std::string &input);
 bool    checkValidInput(std::stack<std::string> &stk);

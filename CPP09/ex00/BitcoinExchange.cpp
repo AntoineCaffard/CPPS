@@ -114,4 +114,5 @@ void BitcoinExchange::_convert(std::string date, std::string value)
 			return ;
 		}
 	}
+	throw NotInDatabaseException();
 }

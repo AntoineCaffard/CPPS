@@ -42,8 +42,6 @@ class BitcoinExchange
 		void _checkDate(const std::string &date);
 		void _convert(std::string date, std::string value);
 
-
-
 		class RegexCreationFailException : public std::exception
 		{
 			virtual const char *what() const throw()
@@ -65,6 +63,14 @@ class BitcoinExchange
 			virtual const char *what() const throw()
 			{
 				return ("Error : Date is invalid");
+			};
+		};
+
+		class NotInDatabaseException : public std::exception
+		{
+			virtual const char *what() const throw()
+			{
+				return ("Error : Date is too old for the Database");
 			};
 		};
 };

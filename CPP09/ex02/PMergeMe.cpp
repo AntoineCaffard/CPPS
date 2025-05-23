@@ -80,7 +80,7 @@ void PMergeMe::_createPairs()
     for (size_t i = 0; i < _vector.size(); i += 2)
     {   
         if (i + 1 >= _vector.size())
-            _pairs.push_back(std::make_pair(-1, _vector[i]));
+            _pairs.push_back(std::make_pair(-42, _vector[i]));
         else
             _pairs.push_back(std::make_pair(std::min(_vector[i], _vector[i + 1]), std::max(_vector[i], _vector[i + 1])));
     }
@@ -100,7 +100,7 @@ void PMergeMe::_insertMaxsVector()
     std::sort(_resultVector.begin(), _resultVector.end());
     for(std::vector<std::pair<int, int> >::iterator it = _pairs.begin(); it != _pairs.end(); ++it)
         _resultVector.insert(std::lower_bound(_resultVector.begin(), _resultVector.end(), it->second), it->second);
-    if (_resultVector[0] == -1)
+    if (_resultVector[0] == -42)
         _resultVector.erase(_resultVector.begin());
 }
 
@@ -109,6 +109,6 @@ void PMergeMe::_insertMaxsDeque()
     std::sort(_resultDeque.begin(), _resultDeque.end());
     for(std::vector<std::pair<int, int> >::iterator it = _pairs.begin(); it != _pairs.end(); ++it)
         _resultDeque.insert(std::lower_bound(_resultDeque.begin(), _resultDeque.end(), it->second), it->second);
-    if (_resultDeque[0] == -1)
+    if (_resultDeque[0] == -42)
         _resultDeque.erase(_resultDeque.begin());
 }

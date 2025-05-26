@@ -29,17 +29,14 @@ void    PMergeMe::process(int ac, char **av)
     try
     {
         _verifyAndAppendInput(ac, av);
+        _displayOriginalContainers();
         _createPairs();
-        _GetMinsFromPairs();
-        _insertMaxsVector();
-        _insertMaxsDeque();
-        std::cout << "VECTOR :" << std::endl;
-        for(size_t i = 0; i < _resultVector.size(); ++i)
-        std::cout << _resultVector[i] << " ";
-        std::cout << std::endl << "DEQUE :" << std::endl;
-        for(size_t i = 0; i < _resultDeque.size(); ++i)
-        std::cout << _resultDeque[i] << " ";
-        std::cout << std::endl;
+        _processVector();
+        _processDeque();
+        _displayFinalContainers();
+        std::cout << std::fixed << std::setprecision(2);
+        std::cout << "Time to sort with vector : " << _vectorSortTime << "μs" << std::endl;
+        std::cout << "Time to sort with deque: " << _dequeSortTime << "μs" << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -86,13 +83,16 @@ void PMergeMe::_createPairs()
     }
 }
 
-void PMergeMe::_GetMinsFromPairs()
+void PMergeMe::_GetMinsFromPairsVector()
 {
     for(std::vector<std::pair<int, int> >::iterator it = _pairs.begin(); it != _pairs.end(); ++it)
-    {
         _resultVector.push_back(it->first);
+}
+
+void PMergeMe::_GetMinsFromPairsDeque()
+{
+    for(std::vector<std::pair<int, int> >::iterator it = _pairs.begin(); it != _pairs.end(); ++it)
         _resultDeque.push_back(it->first);
-    }
 }
 
 void PMergeMe::_insertMaxsVector()
@@ -111,4 +111,69 @@ void PMergeMe::_insertMaxsDeque()
         _resultDeque.insert(std::lower_bound(_resultDeque.begin(), _resultDeque.end(), it->second), it->second);
     if (_resultDeque[0] == -42)
         _resultDeque.erase(_resultDeque.begin());
+}
+
+void PMergeMe::_startDequeTimer()
+{
+    _dequeStartTimer = clock();
+}
+
+void PMergeMe::_startVectorTimer()
+{
+    _vectorStartTimer = clock();
+}
+
+void PMergeMe::_stopDequeTimer()
+{
+    _dequeEndTimer = clock();
+    _dequeSortTime = 1000000.0 * (_dequeEndTimer - _dequeStartTimer) / CLOCKS_PER_SEC;
+}
+
+void PMergeMe::_stopVectorTimer()
+{
+    _vectorSortTime = 1000000.0 * (clock() - _vectorStartTimer) / CLOCKS_PER_SEC;
+}
+
+void    PMergeMe::_processVector()
+{
+    _startVectorTimer();
+    _GetMinsFromPairsVector();
+    _insertMaxsVector();
+    _stopVectorTimer();
+}
+void    PMergeMe::_processDeque()
+{
+    _startDequeTimer();
+    _GetMinsFromPairsDeque();
+    _insertMaxsDeque();
+    _stopDequeTimer();
+}
+
+void    PMergeMe::_displayOriginalContainers()
+{
+    std::cout << "VECTOR INPUT :" << std::endl;
+    printVector(_vector);
+    std::cout << "DEQUE INPUT :" << std::endl;
+    printDeque(_deque);
+}
+void    PMergeMe::_displayFinalContainers()
+{
+    std::cout << "VECTOR OUTPUT :" << std::endl;
+    printVector(_resultVector);
+    std::cout << "DEQUE OUTPUT :" << std::endl;
+    printDeque(_resultDeque);
+}
+
+void printDeque(std::deque<int> &deque)
+{
+    for(std::deque<int>::iterator it = deque.begin(); it < deque.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+}
+
+void printVector(std::vector<int> &vector)
+{
+    for(std::vector<int>::iterator it = vector.begin(); it < vector.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
 }

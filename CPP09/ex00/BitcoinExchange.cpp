@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:10:13 by acaffard          #+#    #+#             */
-/*   Updated: 2025/05/07 19:27:49 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:24:10 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void BitcoinExchange::_initDatabase()
 void	BitcoinExchange::_checkLineFormat(const std::string &line)
 {
 	regex_t test;
-	std::string type = "^[0-9]{4}-[0-9]{2}-[0-9]{2} \\| (0|([0-9]{1,3}(\\.[0-9]+)?|1000))$";
+	std::string type = "^[0-9]{4}-[0-9]{2}-[0-9]{2} \\| (-?[0-9]+(\\.[0-9]+)?)$";
 
 	int errorcode = regcomp(&test, type.c_str(), REG_EXTENDED);
 	if (errorcode)
@@ -81,17 +81,33 @@ void BitcoinExchange::_checkDate(const std::string &date)
 		throw InvalidDateException();
 }
 
+void BitcoinExchange::_checkValue(const std::string &value)
+{
+	double intValue = strtod(value.c_str(), NULL);
+	if (errno == ERANGE)
+	{
+		errno = 0;
+		throw InvalidValueException();
+	}
+	if (intValue < 0 || intValue > 1000)
+		throw InvalidValueException();
+}
+
 void BitcoinExchange::processLine(const std::string &line)
 {
 	try
 	{
 		this->_checkLineFormat(line);
 		this->_checkDate(line.substr(0, line.find(" | ")));
+		this->_checkValue(line.substr(line.find(" | ") + 3));
 		this->_convert(line.substr(0, line.find(" | ")), line.substr(line.find(" | ") + 3));
 	}
 	catch(const std::exception& e)
 	{
+		std::cerr << RED;
+		std::cerr << line << " ==> ";
 		std::cerr << e.what() << '\n';
+		std::cerr << RESET; 
 	}	
 }
 
@@ -110,7 +126,7 @@ void BitcoinExchange::_convert(std::string date, std::string value)
 		if (date >= rit->first)
 		{
 			std::cout << std::fixed << std::setprecision(2);
-			std::cout << date << " => " << value << " = " << strtod(value.c_str(), NULL) * rit->second << std::endl;
+			std::cout << GREEN <<  date << " => " << value << " = " << strtod(value.c_str(), NULL) * rit->second << RESET << std::endl;
 			return ;
 		}
 	}

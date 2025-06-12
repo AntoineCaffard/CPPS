@@ -1,10 +1,10 @@
-NAME = PMergeMe
+NAME = PmergeMe
 CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 RM = rm -rf
 
-SRC = main.cpp PMergeMe.cpp
-INCLUDES = PMergeMe.hpp
+SRC = main.cpp PmergeMe.cpp
+INCLUDES = PmergeMe.hpp
 OBJS = $(SRC:.cpp=.o)
 
 all : $(NAME)

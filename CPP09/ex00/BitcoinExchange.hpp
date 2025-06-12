@@ -6,7 +6,7 @@
 /*   By: acaffard <acaffard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:58:31 by acaffard          #+#    #+#             */
-/*   Updated: 2025/05/07 18:49:08 by acaffard         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:20:15 by acaffard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 #include <iomanip>
 #include <regex.h>
 #include <map>
+
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+
 
 class BitcoinExchange
 {
@@ -40,6 +45,7 @@ class BitcoinExchange
 		void _printDatabase();
 		void _checkLineFormat(const std::string &line);
 		void _checkDate(const std::string &date);
+		void _checkValue(const std::string &value);
 		void _convert(std::string date, std::string value);
 
 		class RegexCreationFailException : public std::exception
@@ -51,26 +57,35 @@ class BitcoinExchange
 		};
 
 		class InvalidExpressionException : public std::exception
-		{
+		{	
 			virtual const char *what() const throw()
 			{
-				return ("Error : Line is invalid");
+				std::cerr << RED;
+				return ("Line Format is invalid");
 			};
 		};
 
 		class InvalidDateException : public std::exception
 		{
-			virtual const char *what() const throw()
-			{
-				return ("Error : Date is invalid");
-			};
+				virtual const char *what() const throw()
+				{
+					return ("Date is invalid");
+				};
+		};
+
+		class InvalidValueException : public std::exception
+		{
+				virtual const char *what() const throw()
+				{
+					return ("Value is invalid");
+				};
 		};
 
 		class NotInDatabaseException : public std::exception
 		{
 			virtual const char *what() const throw()
 			{
-				return ("Error : Date is too old for the Database");
+				return ("Date is too old for the Database");
 			};
 		};
 };

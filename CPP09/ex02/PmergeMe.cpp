@@ -1,4 +1,4 @@
-#include "PMergeMe.hpp"
+#include "PmergeMe.hpp"
 
 PMergeMe::PMergeMe()
 {}
@@ -131,7 +131,8 @@ void PMergeMe::_stopDequeTimer()
 
 void PMergeMe::_stopVectorTimer()
 {
-    _vectorSortTime = 1000000.0 * (clock() - _vectorStartTimer) / CLOCKS_PER_SEC;
+    _vectorEndTimer = clock();
+    _vectorSortTime = 1000000.0 * (_vectorEndTimer - _vectorStartTimer) / CLOCKS_PER_SEC;
 }
 
 void    PMergeMe::_processVector()

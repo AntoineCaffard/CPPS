@@ -7,20 +7,15 @@
 #include <algorithm>
 #include <ctime>
 
+template <typename Container>
 class PMergeMe
 {
     private :
-        std::vector<int>                    _vector;
-        std::deque<int>                     _deque;
-        std::vector<std::pair<int, int> >   _pairs;
-        std::vector<int>                    _resultVector;
-        std::deque<int>                     _resultDeque;
-        clock_t                             _dequeStartTimer;
-        clock_t                             _vectorStartTimer;
-        clock_t                             _dequeEndTimer;
-        clock_t                             _vectorEndTimer;
-        double                              _vectorSortTime;
-        double                              _dequeSortTime;
+        clock_t                             _startTimer;
+        clock_t                             _endTimer;
+        double                              _sortTime;
+
+        int                                _pairValue;
 
     public :
         PMergeMe();
@@ -31,22 +26,16 @@ class PMergeMe
         void process(int ac, char **av);
     
     private :
-        void    _verifyAndAppendInput(int ac, char **av);
+        void    _verifyAndAppendInput(int ac, char **av, std::vector<int> &vector);
         void    _checkValidNumber(const std::string &input);
-        void    _createPairs();
-        void    _GetMinsFromPairsDeque();
-        void    _GetMinsFromPairsVector();
-        void    _insertMaxsVector();
-        void    _insertMaxsDeque();
-        void    _startDequeTimer();
-        void    _stopDequeTimer();
-        void    _startVectorTimer();
-        void    _stopVectorTimer();
+        int     _calculateJacobsthal(int k);
+        void    _fordJohnsonSort(Container &cont);
+        void    _insert(Container &main, Container &pend, int odd, Container &left, Container &vec, bool is_odd, int order);
         void    _processVector();
         void    _processDeque();
-        void    _displayOriginalContainers();
-        void    _displayFinalContainers();
 };
 
 void printDeque(std::deque<int> &deque);
 void printVector(std::vector<int> &vector);
+
+#include "PmergeMe.tpp"

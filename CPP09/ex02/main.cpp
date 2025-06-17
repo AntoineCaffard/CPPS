@@ -6,8 +6,10 @@ int main (int ac, char **av)
     {
         if (ac < 2)
             return 1;
-        PMergeMe<std::vector <int> > merger;
-        merger.process(ac, av);
+        PMergeMe<std::deque<int> > mergerDeq;
+        mergerDeq._processDeque(ac, av);
+        PMergeMe<std::vector<int> > mergerVec;
+        mergerVec._processVector(ac, av);
         return 0;
     }
     catch(const std::exception& e)

@@ -3,7 +3,7 @@ CXX = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 RM = rm -rf
 
-SRC = main.cpp PmergeMe.cpp 
+SRC = main.cpp
 INCLUDES = PmergeMe.hpp PmergeMe.tpp
 OBJS = $(SRC:.cpp=.o)
 

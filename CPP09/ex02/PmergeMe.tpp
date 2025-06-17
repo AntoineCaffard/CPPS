@@ -34,15 +34,16 @@ void    PMergeMe<Container>::_checkValidNumber(const std::string &input)
         throw std::runtime_error("Invalid Input");
 }
 
+
 template <typename Container>
-void    PMergeMe<Container>::_verifyAndAppendInput(int ac, char **av, std::vector<int> &vector)
+void    PMergeMe<Container>::_verifyAndAppendInput(int ac, char **av, Container &cont)
 {
     try
     {
         for (int i = 1; i < ac; ++i)
         {
             _checkValidNumber(av[i]);
-            vector.push_back(std::atoi(av[i]));
+            cont.push_back(std::atoi(av[i]));
         }
     }
     catch(const std::exception& e)
@@ -52,21 +53,49 @@ void    PMergeMe<Container>::_verifyAndAppendInput(int ac, char **av, std::vecto
 }
 
 template <typename Container>
-void PMergeMe<Container>::process(int ac, char **av)
+void    PMergeMe<Container>::_processVector(int ac, char **av)
 {
     try
     {
-        std::vector<int> test;
-        _verifyAndAppendInput(ac, av, test);
-        print(test);
-        _fordJohnsonSort(test);
-        print(test);
+        std::cout << YELLOW << "PROCESSING VECTOR ..." << RESET << std::endl;
+        std::vector<int> vec;
+        _verifyAndAppendInput(ac, av, vec);
+        print(vec);
+        _startTimer = clock();
+        _fordJohnsonSort(vec);
+        _endTimer = clock();
+        _sortTime = 1000000.0 * (_endTimer - _startTimer) / CLOCKS_PER_SEC;
+        std::cout << GREEN;
+        print(vec);
+        std::cout << YELLOW << "Done in " << _sortTime << "μs" << RESET << std::endl;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
-    
+}
+
+template <typename Container>
+void    PMergeMe<Container>::_processDeque(int ac, char **av)
+{
+    try
+    {
+        std::cout << YELLOW << "PROCESSING DEQUE ..." << RESET << std::endl;
+        std::deque<int> dec;
+        _verifyAndAppendInput(ac, av, dec);
+        print(dec);
+        _startTimer = clock();
+        _fordJohnsonSort(dec);
+        _endTimer = clock();
+        _sortTime = 1000000.0 * (_endTimer - _startTimer) / CLOCKS_PER_SEC;
+        std::cout << GREEN;
+        print(dec);
+        std::cout << YELLOW << "Done in " << _sortTime << "μs" << RESET << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 
 template <typename Container>
@@ -145,9 +174,6 @@ void PMergeMe<Container>::_fordJohnsonSort(Container &vec) {
             }
         }
     }
-    std::cout << _pairValue << " : ";
-    print(vec);
-
     _pairValue *= 2; 
     _fordJohnsonSort(vec); 
     _pairValue /= 2;

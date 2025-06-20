@@ -43,12 +43,14 @@ void    PMergeMe<Container>::_verifyAndAppendInput(int ac, char **av, Container 
         for (int i = 1; i < ac; ++i)
         {
             _checkValidNumber(av[i]);
+            // if (std::find(cont.begin(), cont.end(), std::atoi(av[i])) != cont.end())
+            //     throw std::runtime_error("Invalid Input : Dups are forbidden");
             cont.push_back(std::atoi(av[i]));
         }
     }
     catch(const std::exception& e)
     {
-        throw std::runtime_error("Invalid Input");
+        throw std::runtime_error(e.what());
     }
 }
 
@@ -101,48 +103,47 @@ void    PMergeMe<Container>::_processDeque(int ac, char **av)
 template <typename Container>
 int PMergeMe<Container>::_calculateJacobsthal(int k)
 {
-    return round((pow(2, k + 1) + pow(-1, k))/3);
+    return round((pow(2, k + 1) + pow(-1, k)) /3);
 }
 
 template <typename Container>
-void PMergeMe<Container>::_insert(Container &main, Container &pend, int odd, Container &left, Container &vec, bool is_odd, int order) {
+void PMergeMe<Container>::_insert(Container &main, Container &pending, int odd, Container &left, Container &vec, bool is_odd, int order) {
 
     typename Container::iterator end;
 
-    if (pend.size() == 1) {
-        end = std::upper_bound(main.begin(), main.end(), *pend.begin());
-        main.insert(end, *pend.begin());
-    } else if (pend.size() > 1) {
-        size_t jc = 3;
+    if (pending.size() == 1) {
+        end = std::upper_bound(main.begin(), main.end(), *pending.begin());
+        main.insert(end, *pending.begin());
+    } else if (pending.size() > 1) {
+        size_t jacobIndex = 3;
         size_t count = 0;
         size_t idx;
         size_t decrease;
         
-        while (!pend.empty()) {
-            idx = _calculateJacobsthal(jc) - _calculateJacobsthal(jc - 1);
-            if (idx > pend.size())
-                idx = pend.size();
+        while (!pending.empty()) {
+            idx = _calculateJacobsthal(jacobIndex) - _calculateJacobsthal(jacobIndex - 1);
+            if (idx > pending.size())
+                idx = pending.size();
 
             decrease = 0;
             while (idx) {
                 end = main.begin();
-                if (_calculateJacobsthal(jc + count) - decrease <= main.size())
-                    end = main.begin() + _calculateJacobsthal(jc + count) - decrease;
+                if (_calculateJacobsthal(jacobIndex + count) - decrease <= main.size())
+                    end = main.begin() + _calculateJacobsthal(jacobIndex + count) - decrease;
                 else
                     end = main.end();
-                end = std::upper_bound(main.begin(), end, *(pend.begin() + idx - 1));
-                main.insert(end, *(pend.begin() + idx - 1));
-                pend.erase(pend.begin() + idx - 1);
-
+                end = std::upper_bound(main.begin(), end, *(pending.begin() + idx - 1));
+                main.insert(end, *(pending.begin() + idx - 1));
+                pending.erase(pending.begin() + idx - 1);
                 idx--;
                 decrease++;
                 count++;
             }
-            jc++;
+            jacobIndex++;
         }
     }
 
-    Container yaslam;
+    Container tmp;
     
     if (is_odd) {
         end = std::upper_bound(main.begin(), main.end(), odd);
@@ -150,10 +151,11 @@ void PMergeMe<Container>::_insert(Container &main, Container &pend, int odd, Con
     }
     for (typename Container::iterator  i = main.begin(); i != main.end(); i++) {
         typename Container::iterator  it = std::find(vec.begin(), vec.end(), *i);
-        yaslam.insert(yaslam.end(), it - (order - 1), it + 1);
+        std::cout << *(it )<< std::endl;
+        tmp.insert(tmp.end(), it - (order - 1), it + 1);
     }
-    yaslam.insert(yaslam.end(), left.begin(), left.end());
-    vec = yaslam;
+    tmp.insert(tmp.end(), left.begin(), left.end());
+    vec = tmp;
 }
 
 template <typename Container>
@@ -167,11 +169,12 @@ void PMergeMe<Container>::_fordJohnsonSort(Container &vec) {
     typename Container::iterator  start = vec.begin();
     typename Container::iterator  end = vec.begin() + ((_pairValue * nbPairs) - (is_odd * _pairValue));
 
-    for (typename Container::iterator  it = start; it < end; it += (_pairValue * 2)) {
-        if (*(it + (_pairValue - 1)) > *(it + ((_pairValue * 2) - 1))) {
-            for (int i = 0; i < _pairValue; i++) {
+    for (typename Container::iterator  it = start; it < end; it += (_pairValue * 2))
+    {
+        if (*(it + (_pairValue - 1)) > *(it + ((_pairValue * 2) - 1)))
+        {
+            for (int i = 0; i < _pairValue; i++)
                 std::swap(*(it + i), *(it + i + _pairValue));
-            }
         }
     }
     _pairValue *= 2; 
@@ -179,24 +182,25 @@ void PMergeMe<Container>::_fordJohnsonSort(Container &vec) {
     _pairValue /= 2;
 
     Container main;
-    Container pend;
-    int odd = 0;
+    Container pending;
     Container left;
+    int oddValue = 0;
 
     main.push_back(*(start + _pairValue - 1));
     main.push_back(*(start + _pairValue * 2 - 1));
 
-    for (typename Container::iterator  it = start + _pairValue * 2; it < end; it += _pairValue) {
-        pend.push_back(*(it + _pairValue - 1));
+    for (typename Container::iterator  it = start + _pairValue * 2; it < end; it += _pairValue)
+    {
+        pending.push_back(*(it + _pairValue - 1));
         it += _pairValue;
         main.push_back(*(it + _pairValue - 1));
     }
 
     if (is_odd)
-        odd = *(end + _pairValue - 1);
+        oddValue = *(end + _pairValue - 1);
 
     left.insert(left.end(), end + (_pairValue * is_odd), vec.end()); 
 
-    if (is_odd || !pend.empty())
-        _insert(main, pend, odd, left, vec, is_odd, _pairValue);
+    if (is_odd || !pending.empty())
+        _insert(main, pending, oddValue, left, vec, is_odd, _pairValue);
 }

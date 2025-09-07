@@ -1,9 +1,15 @@
-#ifndef PMERGEME_HPP
-#define PMERGEME_HPP
+#pragma once
+
 #include <iostream>
 #include <algorithm>
 #include <deque>
 #include <vector>
+
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define YELLOW  "\033[33m"
+#define GREEN   "\033[32m"
+
 class PmergeMe
 {
   public:
@@ -12,12 +18,11 @@ class PmergeMe
     PmergeMe& operator=(const PmergeMe& pm);
     ~PmergeMe();
 
-    void sort_vec(std::vector<int>& vec);
-    void sort_deque(std::deque<int>& deque);
+    void sort_vec(int ac, char **av);
+    void sort_deque(int ac, char **av);
 
   private:
     template <typename T> void _merge_insertion_sort(T& container, int pair_level);
-
     template <typename T> void _swap_pair(T it, int pair_level);
 };
 
@@ -51,8 +56,13 @@ template <typename T> void PmergeMe::_merge_insertion_sort(T& container, int pai
         return;
     bool is_odd = pair_units_nbr % 2 == 1;
     Iterator start = container.begin();
+
     Iterator last = next(container.begin(), pair_level * (pair_units_nbr));
     Iterator end = next(last, -(is_odd * pair_level));
+
+    std::vector<Iterator> main;
+    std::vector<Iterator> pend;
+    std::vector<int> copy;
 
     for (Iterator it = start; it != end; std::advance(it, 2 * pair_level))
     {
@@ -64,10 +74,6 @@ template <typename T> void PmergeMe::_merge_insertion_sort(T& container, int pai
         }
     }
     _merge_insertion_sort(container, pair_level * 2);
-
-    std::vector<Iterator> main;
-    std::vector<Iterator> pend;
-
     main.insert(main.end(), next(container.begin(), pair_level - 1));
     main.insert(main.end(), next(container.begin(), pair_level * 2 - 1));
     for (int i = 4; i <= pair_units_nbr; i += 2)
@@ -81,7 +87,7 @@ template <typename T> void PmergeMe::_merge_insertion_sort(T& container, int pai
     for (typename std::vector<Iterator>::iterator it = pend.begin(); it != pend.end(); it++)
         main.insert(std::upper_bound(main.begin(),main.end(), *it, _comp<Iterator>), *it);
 
-    std::vector<int> copy;
+    
     for (typename std::vector<Iterator>::iterator it = main.begin(); it != main.end(); ++it)
     {
         Iterator pair_start = *it;
@@ -99,4 +105,33 @@ template <typename T> void PmergeMe::_merge_insertion_sort(T& container, int pai
         copy_it++;
     }
 }
-#endif
+
+template <typename Container>
+void print(Container &cont)
+{
+    for (typename Container::iterator it = cont.begin(); it != cont.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+}
+
+void    checkValidNumber(const std::string &input);
+
+template <typename Container>
+void    verifyAndAppendInput(int ac, char **av, Container &cont)
+{
+    try
+    {
+        for (int i = 1; i < ac; ++i)
+        {
+            checkValidNumber(av[i]);
+            if (std::find(cont.begin(), cont.end(), std::atoi(av[i])) != cont.end())
+                throw std::runtime_error("Invalid Input : Dups are forbidden");
+            cont.push_back(std::atoi(av[i]));
+        }
+    }
+    catch(const std::exception& e)
+    {
+        throw std::runtime_error(e.what());
+    }
+}
+

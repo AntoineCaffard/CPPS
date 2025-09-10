@@ -79,29 +79,8 @@ long _jacobsthal_number(long n)
      return round((pow(2, n + 1) + pow(-1, n)) / 3);
 }
 
-void PmergeMe::_merge_insertion_sort_vector(std::vector<int>& container, int pair_level)
+void PmergeMe::_pair_swap_vector(std::vector<int>::iterator start, std::vector<int>::iterator end, int pair_level)
 {
-    int pair_units_nbr = container.size() / pair_level;
-    if (pair_units_nbr < 2)
-        return;
-
-    /* If there is an odd pair, we ignore it during swapping.
-       It will go to the pend as the last pair. */
-    bool is_odd = pair_units_nbr % 2 == 1;
-
-    /* It's important to caluclate the end position until which we should iterate.
-       We can have a set of values like:
-       ((1 2) (3 4)) ((3 8) (2 6)) | 0
-	   where the smallest possible element is a pair of two numbers, like (1 2) or (3 4). Those elements form pairs.
-       However, there could be numbers (0 in this case) which can't even form a single element necessary to form a pair.
-	   It's not even enough to be an odd element.
-       Those values should be ignored. */
-    std::vector<int>::iterator start = container.begin();
-    std::vector<int>::iterator last = next(container.begin(), pair_level * (pair_units_nbr));
-    std::vector<int>::iterator end = next(last, -(is_odd * pair_level));
-
-    /* Swap pairs of numbers, pairs, pairs of pairs etc by the biggest pair
-       number. After each swap we recurse. */
     int jump = 2 * pair_level;
     for (std::vector<int>::iterator it = start; it != end; std::advance(it, jump))
     {
@@ -112,112 +91,118 @@ void PmergeMe::_merge_insertion_sort_vector(std::vector<int>& container, int pai
             _swap_pair(this_pair, pair_level);
         }
     }
+}
+
+void PmergeMe::_insert_vector(std::vector<int>& container, int pair_level, bool is_odd, std::vector<int>::iterator end)
+{
+       std::vector<std::vector<int>::iterator> main;
+       std::vector<std::vector<int>::iterator> pend;
+   
+       main.insert(main.end(), next(container.begin(), pair_level - 1));
+       main.insert(main.end(), next(container.begin(), pair_level * 2 - 1));
+   
+       for (size_t i = 4; i <= container.size() / 2; i += 2)
+       {
+           pend.insert(pend.end(), next(container.begin(), pair_level * (i - 1) - 1));
+           main.insert(main.end(), next(container.begin(), pair_level * i - 1));
+       }
+       if (is_odd)
+           pend.insert(pend.end(), next(end, pair_level - 1));
+   
+    //    JACOBSTHAL INSERT
+       int prev_jacobsthal = _jacobsthal_number(1);
+       int inserted_numbers = 0;
+       for (int k = 2;; k++)
+       {
+           int curr_jacobsthal = _jacobsthal_number(k);
+           int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
+           int offset = 0;
+           if (jacobsthal_diff > static_cast<int>(pend.size()))
+               break;
+           int nbr_of_times = jacobsthal_diff;
+           typename std::vector<std::vector<int>::iterator>::iterator pend_it = next(pend.begin(), jacobsthal_diff - 1);
+           typename std::vector<std::vector<int>::iterator>::iterator bound_it =
+               next(main.begin(), curr_jacobsthal + inserted_numbers);
+           while (nbr_of_times)
+           {
+               typename std::vector<std::vector<int>::iterator>::iterator idx =
+                   std::upper_bound(main.begin(), bound_it, *pend_it, _comp<std::vector<int>::iterator>);
+               typename std::vector<std::vector<int>::iterator>::iterator inserted = main.insert(idx, *pend_it);
+               nbr_of_times--;
+               pend_it = pend.erase(pend_it);
+               std::advance(pend_it, -1);
+               /* Sometimes the inserted number in inserted at the exact index of where the bound should be.
+                  When this happens, it eclipses the bound of the next pend, and it does more comparisons
+                  than it should. We need to offset when this happens. */
+               offset += (inserted - main.begin()) == curr_jacobsthal + inserted_numbers;
+               bound_it = next(main.begin(), curr_jacobsthal + inserted_numbers - offset);
+           }
+           prev_jacobsthal = curr_jacobsthal;
+           inserted_numbers += jacobsthal_diff;
+           offset = 0;
+       }
+   
+       /* Insert the remaining elements in the reversed order. Here we also want to
+          perform as less comparisons as possible, so we calculate the starting bound
+          to insert pend number to be the pair of the first pend number. If the first
+          pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
+          With the way I do it the index of bound is
+          size_of_main - size_of_pend + index_of_current_pend. */
+       for (ssize_t i = pend.size() - 1; i >= 0; i--)
+       {
+           typename std::vector<std::vector<int>::iterator>::iterator curr_pend = next(pend.begin(), i);
+           typename std::vector<std::vector<int>::iterator>::iterator curr_bound =
+               next(main.begin(), main.size() - pend.size() + i + is_odd);
+           typename std::vector<std::vector<int>::iterator>::iterator idx =
+               std::upper_bound(main.begin(), curr_bound, *curr_pend, _comp<std::vector<int>::iterator>);
+           main.insert(idx, *curr_pend);
+       }
+   
+       /* Use copy vector to store all the numbers, in order not to overwrite the
+          original iterators. */
+       std::vector<int> copy;
+       copy.reserve(container.size());
+       for (typename std::vector<std::vector<int>::iterator>::iterator it = main.begin(); it != main.end(); it++)
+       {
+           for (int i = 0; i < pair_level; i++)
+           {
+               std::vector<int>::iterator pair_start = *it;
+               std::advance(pair_start, -pair_level + i + 1);
+               copy.insert(copy.end(), *pair_start);
+           }
+       }
+   
+       /* Replace values in the original container. */
+       std::vector<int>::iterator container_it = container.begin();
+       std::vector<int>::iterator copy_it = copy.begin();
+       while (copy_it != copy.end())
+       {
+           *container_it = *copy_it;
+           container_it++;
+           copy_it++;
+       }
+}
+
+void PmergeMe::_merge_insertion_sort_vector(std::vector<int>& container, int pair_level)
+{
+    bool    is_odd;
+    int     pair_units_nbr;
+
+    std::vector<int>::iterator start;
+    std::vector<int>::iterator last;
+    std::vector<int>::iterator end;
+
+    pair_units_nbr = container.size() / pair_level;
+    is_odd = pair_units_nbr % 2 == 1;
+    if (pair_units_nbr < 2)
+        return;
+
+    start = container.begin();
+    last = next(container.begin(), pair_level * (pair_units_nbr));
+    end = next(last, -(is_odd * pair_level));
+
+    _pair_swap_vector(start, end, pair_level);
     _merge_insertion_sort_vector(container, pair_level * 2);
+    _insert_vector(container, pair_level, is_odd, end);
 
-    /* Main contains an already sorted sequence.
-       Pend stores yet to be sorted numbers.
-       They contain iterators instead of the numbers themselves because
-       iterators + pair_level contain all the information about any stored
-       range of numbers. */
-    std::vector<std::vector<int>::iterator> main;
-    std::vector<std::vector<int>::iterator> pend;
-
-    /* Initialize the main chain with the {b1, a1}.
-	   Remember that we already know that b1 is going to be the smallest element in the main chain. */
-    main.insert(main.end(), next(container.begin(), pair_level - 1));
-    main.insert(main.end(), next(container.begin(), pair_level * 2 - 1));
-
-    /* Insert the rest of a's into the main chain.
-       Insert the rest of b's into the pend. */
-    for (int i = 4; i <= pair_units_nbr; i += 2)
-    {
-        pend.insert(pend.end(), next(container.begin(), pair_level * (i - 1) - 1));
-        main.insert(main.end(), next(container.begin(), pair_level * i - 1));
-    }
-
-    /* Insert an odd element to the pend, if there are any. */
-    if (is_odd)
-    {
-        pend.insert(pend.end(), next(end, pair_level - 1));
-    }
-
-    /* Insert the pend into the main in the order determined by the
-       Jacobsthal numbers. For example: 3 2 -> 5 4 -> 11 10 9 8 7 6 -> etc.
-       During insertion, elements from the main chain serve as an upper bound for inserting elements,
-       in order to save number of comparisons, as we know already that, for example,
-       b5 is lesser than a5, we binary search only until a5, not until the end of the container.
-
-	   We can calculate the index of the bound element. With the way I do it,
-	   the index of the bound is inserted_numbers + current_jacobsthal_number. */
-    int prev_jacobsthal = _jacobsthal_number(1);
-    int inserted_numbers = 0;
-    for (int k = 2;; k++)
-    {
-        int curr_jacobsthal = _jacobsthal_number(k);
-        int jacobsthal_diff = curr_jacobsthal - prev_jacobsthal;
-		int offset = 0;
-        if (jacobsthal_diff > static_cast<int>(pend.size()))
-            break;
-        int nbr_of_times = jacobsthal_diff;
-        typename std::vector<std::vector<int>::iterator>::iterator pend_it = next(pend.begin(), jacobsthal_diff - 1);
-        typename std::vector<std::vector<int>::iterator>::iterator bound_it =
-            next(main.begin(), curr_jacobsthal + inserted_numbers);
-        while (nbr_of_times)
-        {
-            typename std::vector<std::vector<int>::iterator>::iterator idx =
-                std::upper_bound(main.begin(), bound_it, *pend_it, _comp<std::vector<int>::iterator>);
-            typename std::vector<std::vector<int>::iterator>::iterator inserted = main.insert(idx, *pend_it);
-            nbr_of_times--;
-            pend_it = pend.erase(pend_it);
-            std::advance(pend_it, -1);
-            /* Sometimes the inserted number in inserted at the exact index of where the bound should be.
-			   When this happens, it eclipses the bound of the next pend, and it does more comparisons
-			   than it should. We need to offset when this happens. */
-            offset += (inserted - main.begin()) == curr_jacobsthal + inserted_numbers;
-			bound_it = next(main.begin(), curr_jacobsthal + inserted_numbers - offset);
-        }
-        prev_jacobsthal = curr_jacobsthal;
-        inserted_numbers += jacobsthal_diff;
-		offset = 0;
-    }
-
-    /* Insert the remaining elements in the reversed order. Here we also want to
-       perform as less comparisons as possible, so we calculate the starting bound
-       to insert pend number to be the pair of the first pend number. If the first
-       pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
-       With the way I do it the index of bound is
-       size_of_main - size_of_pend + index_of_current_pend. */
-    for (ssize_t i = pend.size() - 1; i >= 0; i--)
-    {
-        typename std::vector<std::vector<int>::iterator>::iterator curr_pend = next(pend.begin(), i);
-        typename std::vector<std::vector<int>::iterator>::iterator curr_bound =
-            next(main.begin(), main.size() - pend.size() + i + is_odd);
-        typename std::vector<std::vector<int>::iterator>::iterator idx =
-            std::upper_bound(main.begin(), curr_bound, *curr_pend, _comp<std::vector<int>::iterator>);
-        main.insert(idx, *curr_pend);
-    }
-
-    /* Use copy vector to store all the numbers, in order not to overwrite the
-       original iterators. */
-    std::vector<int> copy;
-    copy.reserve(container.size());
-    for (typename std::vector<std::vector<int>::iterator>::iterator it = main.begin(); it != main.end(); it++)
-    {
-        for (int i = 0; i < pair_level; i++)
-        {
-            std::vector<int>::iterator pair_start = *it;
-            std::advance(pair_start, -pair_level + i + 1);
-            copy.insert(copy.end(), *pair_start);
-        }
-    }
-
-    /* Replace values in the original container. */
-    std::vector<int>::iterator container_it = container.begin();
-    std::vector<int>::iterator copy_it = copy.begin();
-    while (copy_it != copy.end())
-    {
-        *container_it = *copy_it;
-        container_it++;
-        copy_it++;
-    }
 }

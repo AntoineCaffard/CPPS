@@ -23,6 +23,8 @@ class PmergeMe
 
   private:
     void _merge_insertion_sort_vector(std::vector<int>& container, int pair_level);
+    void _pair_swap_vector(std::vector<int>::iterator start, std::vector<int>::iterator end, int pair_level);
+    void _insert_vector(std::vector<int>& container, int pair_level, bool is_odd, std::vector<int>::iterator end);
     template <typename T> void _swap_pair(T it, int pair_level);
 };
 
